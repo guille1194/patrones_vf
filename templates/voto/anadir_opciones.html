@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<!--value="{{object.id}}"-->
+<center>
+	<h3>ingrese las respuestas de la pregunta {{object.nombre}}</h3>
+	<form action="."  method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<input type="text" name="id_pregunta" id="id_pregunt" placeholder="pregunta" value="{{object.id}}"><br>
+			<input type="text" name="opcion" id="id_opcion" placeholder="ingrese una opcion"><br>
+			<h5>si depespues de ingresar las opcione y la ultima opcion marque terminar</h5><br>
+			<input type="checkbox" name="terminar" id="id_terminar">Terminar<br><br>
+			<input type="submit" id="id_registrar" name="action"><br>	
+	</form>
+<center>
+{% endblock %}

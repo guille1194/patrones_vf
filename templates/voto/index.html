@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<br><br><br>
+{% if user.is_authenticated %}
+{{user.profile.nombre}}
+            {%for item in instance%}
+              {{item.nombre}}<br>
+              {{item.id_usuario}}
+              <br><br>
+            {%endfor%}
+{%endif%}
+{%endblock%}

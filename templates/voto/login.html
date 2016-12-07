@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block content %}
+<center>
+    <div class="container">
+      <h3>Login</h3>
+      <form method='POST' autocomplete="off">
+                {% csrf_token %}
+                <input class="validate"type="text" name="username" placeholder="usuario"><br>
+                <input class="validate"type="password"name="password"placeholder="contrasena"><br>
+                <input type="submit" name="action" id="login">
+                <p class="margin medium-small"><a href="/registro_usuario">Registrarse</a></p>
+      </form>
+    </div>
+  </center>
+{%endblock%}

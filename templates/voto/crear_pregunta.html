@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<form method='POST' autocomplete="off">
+		{% csrf_token %}
+		<input type="text" name="nombre" id="id_nombre" placeholder="nombre"><br>
+		<input type="text" name="id_usuario" id="id_usuario" placeholder="usuario" value="{{user.profile.id}}"><br><br>
+		<input type="submit" id="id_registrar" name="action">
+</form>
+{%endblock%}
