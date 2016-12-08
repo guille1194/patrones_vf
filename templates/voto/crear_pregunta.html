@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block content %}
-<form method='POST' autocomplete="off">
+<form method='POST' autocomplete="off" action="." enctype="multipart/form-data">
 		{% csrf_token %}
 		<input type="text" name="nombre" id="id_nombre" placeholder="nombre"><br>
 		<input type="text" name="id_usuario" id="id_usuario" placeholder="usuario" value="{{user.profile.id}}"><br><br>
+		<select name="id_categoria" id="id_categorias" />
+                <option value="" class="mdl-textfield__label">Categoria</option>
+                {% for a in categorias %}
+                <option value="{{a.id}}">{{a.nombre}}</option>
+                {% endfor %}
+        </select>
 		<input type="submit" id="id_registrar" name="action">
 </form>
 {%endblock%}

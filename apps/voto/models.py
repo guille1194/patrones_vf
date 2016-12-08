@@ -7,6 +7,9 @@ from django.utils import timezone
 from multiselectfield import MultiSelectField
 import datetime
 # Create your models here.
+class QuerySet(models.QuerySet):
+	def get_categoria(self):
+		return self.nombre
 
 class usuario(models.Model):
 	user_perfil = models.OneToOneField(User, related_name="profile")
@@ -18,11 +21,20 @@ class usuario(models.Model):
 	def __unicode__(self):
 		return '%s'%(self.user_perfil)
 
+class categoria(models.Model):
+	id= models.AutoField(primary_key=True)
+	nombre = models.CharField(max_length=100)
+	objects = QuerySet.as_manager()
+
+	def __unicode__(self):
+		return '%s' %(self.nombre)
+
 class pregunta(models.Model):
 	id = models.AutoField(primary_key=True)
 	nombre = models.CharField(max_length=64)
 	id_usuario = models.ForeignKey(usuario)
-	image = models.ImageField(upload_to='Preguntas/', blank=True, null=True)
+	id_categoria = models.ForeignKey(categoria,null=True,blank=True)
+	creado = models.DateField(default=timezone.now,null=True,blank=True)
 
 
 	def __unicode__(self):

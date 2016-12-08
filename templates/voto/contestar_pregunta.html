@@ -5,13 +5,7 @@
 {{object.id}}<br>
 {{object.nombre}}<br>
 {{object.id_usuario}}<br>
-<!--{%for item in list_objects%}
-	{{item.id}}<br>
-	{{item.id_pregunta}}<br>
-	{%for j in item.id_opciones.all%}
-		{{j.opcion}}
-	{%endfor%}
-{%endfor%}-->
+{{get_image_pregunta}}<br>
 <center>
 <form action="."  method="POST" enctype="multipart/form-data">
 	{% csrf_token %}

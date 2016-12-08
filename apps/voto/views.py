@@ -4,18 +4,19 @@ from .forms import  UserForm, crear_preguntaForm, anadir_opcionesForm, contestar
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from .models import usuario, pregunta, opciones, pregunta_opcion, contestar_pregunta
+from .models import usuario, pregunta, opciones, pregunta_opcion, contestar_pregunta, categoria
 from django.core.paginator import Paginator, EmptyPage, InvalidPage, PageNotAnInteger
 from django.views.generic.detail import SingleObjectMixin
 from django.contrib.auth.models import User
 from django.views.generic.edit import ModelFormMixin
-from decimal import Decimal  
+from decimal import Decimal
+import datetime  
 
 # Create your views here.
 def index_view(request):
 	pre = pregunta.objects.all()
 	ctx = {'instance':pre}
-	return render(request,'voto/index.html',ctx)
+	return render(request,"voto/index.html",ctx)
 
 class registro_usuario(FormView):
 	template_name = 'voto/registro_usuario.html'
@@ -34,12 +35,15 @@ class registro_usuario(FormView):
 		return super(registro_usuario,self).form_valid(form)
 
 def crear_pregunta(request):
-	form = crear_preguntaForm(request.POST or None)
+	form = crear_preguntaForm(request.POST or None,request.FILES or None)
+	c = categoria.objects.all()
+	ctx = {'categorias':c}
 	if form.is_valid():
 		instance = form.save(commit=False)
+		instance.creado = datetime.datetime.now()
 		instance.save()
 		return redirect('anadir_opciones')
-	return render(request,'voto/crear_pregunta.html')
+	return render(request,'voto/crear_pregunta.html',ctx)
 
 def anadir_opciones(request,pk=None):
 	pregunta_get = pregunta.objects.latest('id')
