@@ -3,7 +3,7 @@
 {% block content %}
 <center>
 	<h3>Registro de usuario</h3>
-	<form method='POST' autocomplete="off">
+	<form method='POST' autocomplete="off" action="." enctype="multipart/form-data">
 		{% csrf_token %}
 		<input type="text" name="username" id="id_username" placeholder="usuario"><br>
 		<input type="password" name="password1" id="id_password"  placeholder="contrasena"><br>
@@ -11,6 +11,7 @@
 		<input type="text" name="nombre" id="id_nombre" placeholder="nombre"><br>
 		<input type="number" name="edad" id="id_edad" placeholder="edad"><br>
 		<input type="text" name="correo" id="id_correo" placeholder="correo"><br><br>
+		<input name="image" type="file" id="id_image" class="upload"/><br><br>
 		<input type="submit" id="id_registrar" name="action">
 	</form>
 </center>

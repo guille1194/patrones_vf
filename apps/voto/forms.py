@@ -11,6 +11,7 @@ class UserForm(UserCreationForm):
 	nombre = forms.CharField(max_length=64)
 	edad = forms.IntegerField()
 	correo = forms.CharField(max_length=64)
+	image= forms.ImageField()
 
 class crear_preguntaForm(forms.ModelForm):
 	class Meta:

@@ -13,6 +13,7 @@ class usuario(models.Model):
 	nombre = models.CharField(max_length=64)
 	edad = models.IntegerField()
 	correo = models.EmailField()
+	image = models.ImageField(upload_to='Perfiles/', blank=True, null=True)
 
 	def __unicode__(self):
 		return '%s'%(self.user_perfil)
@@ -21,6 +22,8 @@ class pregunta(models.Model):
 	id = models.AutoField(primary_key=True)
 	nombre = models.CharField(max_length=64)
 	id_usuario = models.ForeignKey(usuario)
+	image = models.ImageField(upload_to='Preguntas/', blank=True, null=True)
+
 
 	def __unicode__(self):
 		return '%s'%(self.nombre)

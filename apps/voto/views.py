@@ -29,6 +29,7 @@ class registro_usuario(FormView):
 		p.nombre = form.cleaned_data['nombre']
 		p.edad = form.cleaned_data['edad']
 		p.correo = form.cleaned_data['correo']
+		p.image = form.cleaned_data['image']
 		p.save()
 		return super(registro_usuario,self).form_valid(form)
 

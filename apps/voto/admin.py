@@ -3,7 +3,7 @@ from .models import usuario, pregunta, opciones, pregunta_opcion, contestar_preg
 # Register your models here.
 @admin.register(usuario)
 class usuario_admin(admin.ModelAdmin):
-	list_display = ('id','user_perfil','nombre','edad','correo')
+	list_display = ('id','user_perfil','nombre','edad','correo','image')
 
 @admin.register(pregunta)
 class pregunta_admin(admin.ModelAdmin):
