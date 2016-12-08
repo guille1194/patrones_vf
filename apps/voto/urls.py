@@ -9,4 +9,5 @@ urlpatterns = [
 	url(r'^registro_usuario/$',registro_usuario.as_view(),name='registro_usuario'),
 	url(r'^crear_pregunta/$',crear_pregunta,name='crear_pregunta'),
 	url(r'^anadir_opciones/$',anadir_opciones,name='anadir_opciones'),
+	url(r'^contestar_pregunta/(?P<pk>[-\w]+)/$',contestar_pregunta,name='contestar_pregunta'),
 ]

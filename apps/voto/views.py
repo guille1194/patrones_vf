@@ -54,7 +54,6 @@ def anadir_opciones(request,pk=None):
 		instance.id_pregunta = pregunta.objects.get(id=request.POST['id_pregunta'])
 		instance.opcion = request.POST['opcion']
 		instance.save()
-		print listaop
 		if instance.terminar == True:
 			p = pregunta_opcion()
 			p.id_pregunta = instance.id_pregunta
@@ -65,9 +64,21 @@ def anadir_opciones(request,pk=None):
 		print "no valido"
 	return render(request,'voto/anadir_opciones.html',{"object":pregunta_get})
 
-def contestar_pregunta(request):
+def contestar_pregunta(request,pk=None):
+	insta = get_object_or_404(pregunta,id=pk)
+	preop = pregunta_opcion.objects.filter(id_pregunta = insta.id)
+	ctx = {
+			"object":insta,
+			"list_objects":preop,
+	}
 	form = contestar_preguntaForm(request.POST or None)
-	return render(request,'voto/contestar_pregunta.html')
+	if form.is_valid():
+		instance = form.save()
+		print instance.id_opcion
+		instance.save()
+		return redirect('index_view')
+
+	return render(request,'voto/contestar_pregunta.html',ctx)
 
 
 

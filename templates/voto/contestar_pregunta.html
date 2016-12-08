@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<h3>hola</h3>
+{{object.id}}<br>
+{{object.nombre}}<br>
+{{object.id_usuario}}<br>
+<!--{%for item in list_objects%}
+	{{item.id}}<br>
+	{{item.id_pregunta}}<br>
+	{%for j in item.id_opciones.all%}
+		{{j.opcion}}
+	{%endfor%}
+{%endfor%}-->
+<center>
+<form action="."  method="POST" enctype="multipart/form-data">
+	{% csrf_token %}
+	{%for item in list_objects%}
+		{{item.id_pregunta_opcion}}
+		<input type="text" value="{{item.id}}" name="id_pregunta_opcion">
+		<h5>{{item.id_pregunta}}<h5>
+			<select multiple name="id_opcion">
+			{%for item2 in item.id_opciones.all%}
+				<!--<input type="checkbox" name="id_opcion" id="{{item2.id}}">
+				<labe for="{{item2.id}}">{{item2.opcion}} {{item2.id}}<label>-->
+					  <option value="{{item2.id}}">{{item2.opcion}} {{item2.id}}</option>
+			{%endfor%}
+			</select>
+	{%endfor%}
+	<br><br>
+	<input type="submit" id="id_registrar" name="action">
+</form>
+<center>
+{% endblock %}

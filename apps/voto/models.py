@@ -28,7 +28,7 @@ class pregunta(models.Model):
 class opciones(models.Model):
 	id = models.AutoField(primary_key=True)
 	id_pregunta = models.ForeignKey(pregunta)
-	opcion = models.CharField(max_length=64)
+	opcion = models.CharField(max_length=64,null=True,blank=True)
 	seleccionar = models.BooleanField(default=False)
 	terminar = models.BooleanField(default=False)
 
@@ -49,10 +49,15 @@ class pregunta_opcion(models.Model):
 class contestar_pregunta(models.Model):
 	id = models.AutoField(primary_key=True)
 	id_pregunta_opcion = models.ForeignKey(pregunta_opcion)
-	id_opcion = models.ForeignKey(opciones)
+	id_opcion = models.ForeignKey(opciones,blank=True,null=True)
 
 	def __unicode__(self):
 		return '%s'%(self.id)
+
+	#def get_opciones(self):
+		return "\n".join([p.opcion for p in self.id_opcion.all()])
+
+
 
 
 
