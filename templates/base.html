@@ -1,16 +1,120 @@
 {% load staticfiles %}
-<html>
-	<head>
-		<ul>
-            <li><a href="/">home</a></li>
-            <li><a href="/logout">Logout</a></li>
-            <li><a href="/crear_pregunta">crear pregunta</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/registro_usuario">Registro de usuarios</a></li>
-            <li><img src="{{ get_image_profile }}"  height="60" style="display:inline"></li>
-        </ul>
-	</head>
-<body>
-</body>
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>VotBit</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,500" type="text/css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/3.5.2/css/animsition.css">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/sweetalert.css' %}">
+		<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-light_blue.min.css">
+		<link rel="stylesheet" href="{% static 'css/swipebox.min.css' %}">
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+		<body>
+	    <div class="animsition">
+	      <!-- Header -->
+	      <div class="mdl-layout mdl-js-layout mdl-layout--overlay-drawer-button">
+	        <header class="mdl-layout__header mdl-shadow--1dp bg-white">
+	          <div class="mdl-layout__header-row">
+	            <!-- Title -->
+	            <span class="mdl-layout-title"><a href="/">VotBit</a></span>
+	            <!-- Spacer -->
+	            <div class="mdl-layout-spacer"></div>
+	            <!-- Right Menu -->
+	            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right"> <!-- search-->
+	              <label class="mdl-button mdl-js-button mdl-button--icon"
+	                     for="fixed-header-drawer-exp">
+	                <i class="material-icons">search</i>
+	              </label>
+	              <div class="mdl-textfield__expandable-holder">
+	                <input class="mdl-textfield__input" type="text" name="sample"
+	                       id="fixed-header-drawer-exp" />
+	              </div>
+	            </div><!-- end of search -->
+	          </div>
+	        </header>
+	        <!-- Sidebar -->
+	        <div class="mdl-layout__drawer">
+
+	          <!-- Top -->
+	          <div class="drawer-header">
+	            <img src="{{ get_image_profile }}" alt="">
+	          </div>
+
+	          <!-- Main Navigation -->
+	          <nav class="mdl-navigation">
+	            <div class="mdl-collapse first">
+	                <a class="mdl-navigation__link mdl-collapse__button">
+	                    <i class="material-icons mdl-collapse__icon mdl-animation--default">arrow_drop_down</i>
+                      {% if user.is_authenticated %}
+	                    <span>{{user.profile.nombre}}</span>
+                      {%endif%}
+	                </a>
+                <div class="mdl-collapse__content-wrapper">
+	                  <div class="mdl-collapse__content mdl-animation--default" style="margin-top: -156px;">
+	                    <a class="mdl-navigation__link" href="/login">Agregar otra cuenta +</a>
+	                  </div>
+	                </div>
+	            </div>
+	            <a class="mdl-navigation__link animsition-link" href="/"><i class="material-icons">home</i><span>Inicio</span></a>
+	            <!--<a class="mdl-navigation__link animsition-link" href="perfil.html"><i class="material-icons">person</i><span>Perfil</span></a>-->
+	            <div class="mdl-collapse">
+	                <a class="mdl-navigation__link mdl-collapse__button"><i class="material-icons">book</i>
+	                    <i class="material-icons mdl-collapse__icon mdl-animation--default">expand_more</i>
+	                    <span>Encuestas</span>
+	                </a>
+	                <div class="mdl-collapse__content-wrapper">
+	                  <div class="mdl-collapse__content mdl-animation--default" style="margin-top: -156px;">
+	                    <a class="mdl-navigation__link animsition-link" href="/lista_preguntas">Lista de Encuestas</a>
+	                  </div>
+	                </div>
+	            </div>
+							<a class="mdl-navigation__link animsition-link" href="/crear_pregunta"><i class="material-icons">question_answer</i><span>Crear Pregunta</span></a>
+	            <div class="mdl-collapse">
+	                <a class="mdl-navigation__link mdl-collapse__button"><i class="material-icons">dashboard</i>
+	                    <i class="material-icons mdl-collapse__icon mdl-animation--default">expand_more</i>
+	                    <span>Cuenta</span>
+	                </a>
+	                <div class="mdl-collapse__content-wrapper">
+	                  <div class="mdl-collapse__content mdl-animation--default" style="margin-top: -156px;">
+	                    <a class="mdl-navigation__link animsition-link" href="/login">Ingreso</a>
+											<a class="mdl-navigation__link animsition-link" href="/logout">Cerrar Sesion</a>
+											<a class="mdl-navigation__link animsition-link" href="/registro_usuario">Registrarse</a>
+	                  </div>
+	                </div>
+	            </div>
+	          </nav>
+	        </div>
+
+	        <!-- Page Content -->
+	        <main class="mdl-layout__content">
+
+	          <!-- Right Sidebar -->
+	          <div class="s-right from-right">
+	            <div class="s-right-container">
+	              <a href="#!"><i class="material-icons s-right-close">close</i></a>
+	              <div class="s-right-content">
+
+	              </div>
+	            </div>
+	          </div> <!-- End of Right Sidebar -->
+
+						{% block content %}
+						{% endblock %}
+	        </main>
+	      </div>
+	    </div>
+
+	    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/3.5.2/js/jquery.animsition.js"></script>
+	    <script src="{% static 'js/sweetalert.min.js' %}"></script>
+	    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
+	    <script src="{% static 'js/jquery.swipebox.min.js' %}"></script>
+	    <script src="{% static 'js/function.js' %}"></script>
+	  </body>
 </html>
-{% block content %}{% endblock %}

@@ -1,28 +1,85 @@
-{% extends 'base.html' %}
 {% load staticfiles %}
-{% block content %}
-<h3>hola</h3>
-{{object.id}}<br>
-{{object.nombre}}<br>
-{{object.id_usuario}}<br>
-{{get_image_pregunta}}<br>
-<center>
-<form action="."  method="POST" enctype="multipart/form-data">
-	{% csrf_token %}
-	{%for item in list_objects%}
-		{{item.id_pregunta_opcion}}
-		<input type="text" value="{{item.id}}" name="id_pregunta_opcion">
-		<h5>{{item.id_pregunta}}<h5>
-			<select multiple name="id_opcion">
-			{%for item2 in item.id_opciones.all%}
-				<!--<input type="checkbox" name="id_opcion" id="{{item2.id}}">
-				<labe for="{{item2.id}}">{{item2.opcion}} {{item2.id}}<label>-->
-					  <option value="{{item2.id}}">{{item2.opcion}} {{item2.id}}</option>
-			{%endfor%}
-			</select>
-	{%endfor%}
-	<br><br>
-	<input type="submit" id="id_registrar" name="action">
-</form>
-<center>
-{% endblock %}
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>VotBit</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,500" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/3.5.2/css/animsition.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sweetalert.css' %}">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-light_blue.min.css">
+    <link rel="stylesheet" href="{% static 'css/swipebox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+
+  <body>
+    <div class="animsition">
+      <!-- Page Content -->
+      <main class="mdl-layout__content article">
+        <div class="back">
+          <a class="mdl-button mdl-js-button mdl-button--icon" href="/lista_preguntas">
+            <i class="material-icons">arrow_back</i>
+          </a>
+        </div>
+        <div class="article-header">
+          <div class="gradient-container">
+            <img src="{%static 'img/9.jpg' %}" alt="">
+            <div class="overlay-gradient"></div>
+          </div>
+          <div class="card-header">
+            <div class="contact-user bg-red"><span>J</span></div>
+					{%for item in object_list %}
+            <div class="card-autor">
+							<h3>{{item.id_pregunta}}</h3>
+							<span>{{item.creado}}</span>
+            </div>
+          </div>
+        </div>
+
+				{% endfor %}
+        <div class="container">
+					<form action="."  method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							{%for item in object_list %}
+								{{item.id_pregunta_opcion}}
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+								<input type="text" value="{{item.id}}" name="id_pregunta_opcion" hidden="hidden">
+									<select class="mdl-textfield__input" multiple name="id_opcion">
+									{%for item2 in item.id_opciones.all%}
+										<!--<input type="checkbox" name="id_opcion" id="{{item2.id}}">
+										<labe for="{{item2.id}}">{{item2.opcion}} {{item2.id}}<label>-->
+											  <option value="{{item2.id}}">{{item2.opcion}} {{item2.id}}</option>
+									{%endfor%}
+									</select>
+							{%endfor%}
+							<br><br><br><br>
+						<input type="submit" id="id_registrar" name="action" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary right">
+					</form>
+        </div>
+
+        <div class="container">
+          <span class="title title-counter">Comentarios</span><span class="light-text"></span>
+          <div class="comments">
+          </div>
+
+        </div>
+      </main>
+    </div>
+
+
+
+    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/3.5.2/js/jquery.animsition.js"></script>
+    <script src="{% static 'js/sweetalert.min.js' %}"></script>
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
+    <script src="{% static 'js/jquery.swipebox.min.js' %}"></script>
+    <script src="{% static 'js/function.js' %}"></script>
+  </body>
+</html>

@@ -2,4 +2,61 @@
 {% load staticfiles %}
 {% block content %}
 
-{% endblock %}
+<center><h5>Conteste el examen correctamente</h5></center>
+<div class="row">
+
+    <form  action="." method="POST" enctype="multipart/form-data">
+    	{% csrf_token %}
+    	<!--{{form.as_p}}-->
+    	<div class="container">
+    		<div class="input-field col s6">
+	    		<label>Numero de control</label>
+		        <input type="text" value="{{user.alumno.n_control}}" name="id_alumno">
+	   		</div>
+
+	   		<input type="hidden"  value="{{object.id_examen}}" name="id_examen">
+	   		<input type="hidden"  value="{{object.unidad}}" name="unidad">
+	   		<input type="hidden"  value="{{object.id_materia.serie}}" name="id_materia">
+
+	   		<!--{% for item in object_list %}
+	   			{% for item2 in item.id_pregunta_respuesta.all%}
+	   				<h5>{{item2.id_pregunta}}</h5>
+	   				{% for item3 in ite2.id_respuesta.all %}
+	   					<p>
+					      <input type="checkbox" id="{{item3.id}}" name="id_respuesta"/>
+					      <label for="{{item3.id}}">{{item3.nombre}}</label>
+					    </p>
+	   				{% endfor %}
+	   			{% endfor %}
+	   		{% endfor %}-->
+
+
+	   		{% for item in object_list %}
+	   			{% for item2 in item.id_pregunta_respuesta.all%}
+		   		<div class="input-field col s12">
+				    <select multiple name="id_respuesta">
+				      <option value="" disabled selected>{{item2.id_pregunta}}</option>
+				      {% for item3 in item2.id_respuesta.all %}
+				      	<option value="{{item3.id}}">{{item3.nombre}}{{item3.id}}</option>
+				      {%endfor%}
+				    </select>
+				    <input type="text" value="{{item2.id_pregunta_respuesta}}" name="id_pregunta_respuesta"/>
+				</div>
+				{%endfor%}
+			{%endfor%}
+
+
+
+
+
+
+	       <div class="row">
+			    <button class="btn waves-effect waves-light col s12" type="submit" name="action" id="boton-guardar" name="boton-guardar">Enviar
+			    </button>
+	        </div>
+
+    	</div>
+    </form>
+  </div>
+
+{%endblock%}

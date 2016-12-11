@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block content %}
+<div class="gradient-container index">
+  <div class="article-header fullscreen bg-10">
+    <div class="fullscreen-title valign-wrapper">
+      <div class="valign">
+        <h1 class="black">VotBit.</h1>
+        <p class="black">– Solo decisiones rapidas –</p>
+        <a href="/lista_preguntas" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent border">
+          Leer Mas
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 <br><br><br>
 {% if user.is_authenticated %}
 {{user.profile.nombre}}
             {%for item in instance%}
-              <a href="contestar_pregunta/{{item.id}}">{{item.nombre}}</a><br>
+              {{item.nombre}}<br>
               {{item.id_usuario}}
               <br><br>
             {%endfor%}

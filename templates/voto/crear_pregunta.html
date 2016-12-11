@@ -1,16 +1,85 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block content %}
-<form method='POST' autocomplete="off" action="." enctype="multipart/form-data">
-		{% csrf_token %}
-		<input type="text" name="nombre" id="id_nombre" placeholder="nombre"><br>
-		<input type="text" name="id_usuario" id="id_usuario" placeholder="usuario" value="{{user.profile.id}}"><br><br>
-		<select name="id_categoria" id="id_categorias" />
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>VotBit</title>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,500" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/3.5.2/css/animsition.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sweetalert.css' %}">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-light_blue.min.css">
+    <link rel="stylesheet" href="{% static 'css/swipebox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+
+  <body>
+    <div class="animsition">
+      <!-- Page Content -->
+      <main class="mdl-layout__content login-bg">
+        <div class="login mdl-shadow--2dp"> <!-- card -->
+          <div class="account-info mdl-color--primary">
+
+            <div class="account-navigation"> <!-- top icons -->
+              <a class="mdl-button mdl-js-button mdl-button--icon left" href="/">
+                <i class="material-icons">arrow_back</i>
+              </a>
+              <button class="mdl-button mdl-js-button mdl-button--icon right">
+                <i class="material-icons">close</i>
+              </button>
+              <div class="clr"></div>
+
+              <div class="minilogo-account user1"></div> <!-- user -->
+              <span>Ingresa con tu cuenta</span>
+            </div>
+          </div>
+
+          <div class="account-data"> <!-- text fields -->
+            <form method='POST' autocomplete="off" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" id="id_nombre" name="nombre" type="text" />
+                <label class="mdl-textfield__label">Pregunta</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <select class="mdl-textfield__input" name="categorias" id="id_categorias" />
                 <option value="" class="mdl-textfield__label">Categoria</option>
                 {% for a in categorias %}
                 <option value="{{a.id}}">{{a.nombre}}</option>
                 {% endfor %}
-        </select>
-		<input type="submit" id="id_registrar" name="action">
-</form>
+              </select>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo" >
+                <input class="mdl-textfield__input" type="text" name="id_usuario" id="id_usuario" value="{{user.profile.id}}" readonly="readonly" hidden="hidden"/>
+                <label class="mdl-textfield__label" value="{{user.profile.id}}"></label>
+              </div>
+							<input type="submit" id="id_registrar" placeholder="Ingresar" name="action" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary right">
+							<div class="clr"></div>
+            </form>
+
+
+          </div>
+
+        </div>
+      </main>
+    </div>
+
+    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/3.5.2/js/jquery.animsition.js"></script>
+    <script src="{% static 'js/sweetalert.min.js' %}"></script>
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
+    <script src="{% static 'js/jquery.swipebox.min.js' %}"></script>
+    <script src="{% static 'js/function.js' %}"></script>
+  </body>
+</html>
+
 {%endblock%}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block content %}
+<div class="container">
+
+    <div class="blog-header mdl-color--primary">
+      <h1 class="margin-top-0 white"><strong>Listado de Preguntas</strong></h1>
+    </div>
+
+    <div class="container no-margin">
+      {% for pregunta in object_list %}
+      <div class="section bg-2">
+        <div class="v-category bg-white">
+          <h3>{{ pregunta.nombre | title }}</h3>
+          <p>Publicado por {{pregunta.id_usuario | capfirst}} el {{pregunta.creado | capfirst}}</p>
+          <p>{{pregunta.categorias}}</p>
+          <a href="/contestar_pregunta2/{{pregunta.id}}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent border">
+          Leer
+        </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="pagination">
+          <span class="step-links">
+              {% if object_list.has_previous %}
+                  <a href="?page={{ object_list.previous_page_number }}">anterior</a>
+              {% endif %}
+
+              <span class="current">
+                  Pagina {{ object_list.number }} de {{ object_list.paginator.num_pages }}
+              </span>
+
+              {% if object_list.has_next %}
+                  <a href="?page={{ object_list.next_page_number }}">siguiente</a>
+              {% endif %}
+          </span>
+        </div>
+      </div>
+    </div>
+{%endblock%}
